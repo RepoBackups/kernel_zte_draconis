@@ -1160,7 +1160,7 @@ void zte_pm_after_powercollapse(void)
 
 int msm_cpu_pm_enter_sleep(enum msm_pm_sleep_mode mode, bool from_idle)
 {
-	int64_t time;
+	int64_t time = 0;
 	bool collapsed = 1;
 	int exit_stat = -1;
 
