@@ -60,6 +60,11 @@
 
 #include <linux/export.h>
 
+#ifdef CONFIG_CPU_FREQ_GOV_UBERDEMAND
+int set_second_phase_freq(int cpufreq);
+#endif
+
+
 /*
  * Add RAM console support by ZTE_BOOT_JIA_20130121 jia.jia
  */
@@ -367,6 +372,9 @@ void __init msm8226_add_drivers(void)
 	msm8226_init_buses();
 	tsens_tm_init_driver();
 	msm_thermal_device_init();
+#ifdef CONFIG_CPU_FREQ_GOV_UBERDEMAND
+	set_second_phase_freq(1728000);
+#endif
 }
 
 //ZTE_RIL_RIL_20130615 begin
