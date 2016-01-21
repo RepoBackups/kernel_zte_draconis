@@ -373,7 +373,7 @@ void __init msm8226_add_drivers(void)
 	tsens_tm_init_driver();
 	msm_thermal_device_init();
 #ifdef CONFIG_CPU_FREQ_GOV_UBERDEMAND
-	set_second_phase_freq(1728000);
+	set_second_phase_freq(998400);
 #endif
 }
 
