@@ -23,8 +23,6 @@
 #include <linux/qpnp/vibrator.h>
 #include "../../staging/android/timed_output.h"
 
-#define VIB_DRIVER_TAG	"vibrator "	//ZTE LOG
-
 #define QPNP_VIB_VTG_CTL(base)		(base + 0x41)
 #define QPNP_VIB_EN_CTL(base)		(base + 0x46)
 
@@ -36,12 +34,6 @@
 #define QPNP_VIB_EN			BIT(7)
 #define QPNP_VIB_VTG_SET_MASK		0x1F
 #define QPNP_VIB_LOGIC_SHIFT		4
-
-//zte VIB(voltage for selftest)
-static int vibrator_voltage = 0;
-module_param_named(vib_voltage,
-	vibrator_voltage, int, S_IRUGO | S_IWUSR | S_IWGRP);
-//zte VIB(voltage for selftest)-end
 
 struct qpnp_vib {
 	struct spmi_device *spmi;
@@ -208,15 +200,6 @@ static int qpnp_vib_set(struct qpnp_vib *vib, int on)
 	u8 val;
 
 	if (on) {
-
-		//zte VIB 20140428 (/sys/module/qpnp_vibrator/parameters/vob_voltage)
-		if(vibrator_voltage < QPNP_VIB_MAX_LEVEL&&  vibrator_voltage > QPNP_VIB_MIN_LEVEL)
-		{
-			vib->vtg_level =vibrator_voltage;
-			pr_info("vib_voltage rest to %d\n",vibrator_voltage);
-		}
-		printk(VIB_DRIVER_TAG " vib_on and voltage=%d\n", vib->vtg_level);
-
 		val = vib->reg_vtg_ctl;
 		val &= ~QPNP_VIB_VTG_SET_MASK;
 		val |= (vib->vtg_level & QPNP_VIB_VTG_SET_MASK);
@@ -237,8 +220,6 @@ static int qpnp_vib_set(struct qpnp_vib *vib, int on)
 		if (rc < 0)
 			return rc;
 		vib->reg_en_ctl = val;
-		printk(VIB_DRIVER_TAG "  off \n");	//ZTE
-
 	}
 
 	return rc;
@@ -255,7 +236,6 @@ static void qpnp_vib_enable(struct timed_output_dev *dev, int value)
 	if (value == 0)
 		vib->state = 0;
 	else {
-		printk(VIB_DRIVER_TAG "  From Java time=%dms\n",value);	//ZTE
 		value = (value > vib->timeout ?
 				 vib->timeout : value);
 		vib->state = 1;
