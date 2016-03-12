@@ -147,3 +147,6 @@ obj-$(CONFIG_BIF)		+= bif/
 obj-$(CONFIG_SENSORS)		+= sensors/
 
 obj-$(CONFIG_EXTERNAL_IRDA)		+= irda/
+
+# Tripndroid
+obj-$(CONFIG_TRIPNDROID_FRAMEWORK)	+= tripndroid/

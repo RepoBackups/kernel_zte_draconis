@@ -382,6 +382,7 @@ void __init msm8226_add_drivers(void)
 #endif
 #ifdef CONFIG_CPU_FREQ_GOV_BADASS_3_PHASE
 	set_three_phase_freq_badass(CONFIG_CPU_FREQ_GOV_BADASS_3_PHASE_FREQ);
+#endif
 #ifdef CONFIG_CPU_FREQ_GOV_UBERDEMAND
 	set_second_phase_freq(998400);
 #endif

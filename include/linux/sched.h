@@ -142,6 +142,12 @@ extern unsigned long nr_iowait(void);
 extern unsigned long nr_iowait_cpu(int cpu);
 extern unsigned long this_cpu_load(void);
 
+/* Definitions for TDF_RQ_STATS */
+#ifdef CONFIG_TDF_RQ_STATS
+extern void sched_update_tdf(int cpu, unsigned long nr, bool inc);
+extern void sched_running_avg(int *avg);
+#endif
+
 extern void sched_update_nr_prod(int cpu, unsigned long nr, bool inc);
 extern void sched_get_nr_running_avg(int *avg, int *iowait_avg);
 

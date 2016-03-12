@@ -156,4 +156,7 @@ source "drivers/sensors/Kconfig"
 
 source "drivers/irda/Kconfig"
 
+# Tripndroid
+source "drivers/tripndroid/Kconfig"
+
 endmenu

@@ -929,12 +929,18 @@ static inline void cpuacct_charge(struct task_struct *tsk, u64 cputime) {}
 static inline void inc_nr_running(struct rq *rq)
 {
 	sched_update_nr_prod(cpu_of(rq), rq->nr_running, true);
+#ifdef CONFIG_TDF_RQ_STATS
+	sched_update_tdf(cpu_of(rq), rq->nr_running, true);
+#endif
 	rq->nr_running++;
 }
 
 static inline void dec_nr_running(struct rq *rq)
 {
 	sched_update_nr_prod(cpu_of(rq), rq->nr_running, false);
+#ifdef CONFIG_TDF_RQ_STATS
+	sched_update_tdf(cpu_of(rq), rq->nr_running, false);
+#endif
 	rq->nr_running--;
 }
 
